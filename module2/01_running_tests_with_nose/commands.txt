@@ -1,0 +1,3 @@
+nosetests --with-spec --spec-color -- To add colour to the terminal when running tests with nose (RED, GREEN)
+nosetests --with-spec --spec-color --with-coverage -- To run tests with coverage
+coverage report -m -- Create coverage  report
