@@ -11,12 +11,20 @@ public class Wheel {
         this.nameThatShouldNotBeChosen = "Ntobeko";
     }
 
-    public String chooseLuckyVictim() {
-        String chosenVictim = names.get(random.chooseRandomNumberStartingFrom1(names.size())-1);
+    private String getRandomNameFromListOfNames() {
+        return names.get(random.chooseRandomNumberStartingFrom1(names.size())-1);
+    }
 
-        while (chosenVictim.equalsIgnoreCase(nameThatShouldNotBeChosen)) {
-            chosenVictim = 
+    public String chooseLuckyVictim() {
+        if (names.isEmpty() || (names.size() == 1 && names.getFirst().equalsIgnoreCase(nameThatShouldNotBeChosen))) {
+            throw new IllegalArgumentException("Cannot choose from empty list of names");
+        } else {
+            String chosenVictim = getRandomNameFromListOfNames();
+
+            while (chosenVictim.equalsIgnoreCase(nameThatShouldNotBeChosen)) {
+                chosenVictim = getRandomNameFromListOfNames();
+            }
+            return chosenVictim;
         }
-        return chosenVictim;
     }
 }

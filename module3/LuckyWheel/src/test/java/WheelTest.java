@@ -1,7 +1,5 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 
 import java.util.List;
 
@@ -20,7 +18,7 @@ class WheelTest {
 
     @Test
     void testCanReturnAName() {
-        wheel = new Wheel(mockRandom, List.of("Ntobeko"));
+        wheel = new Wheel(mockRandom, List.of("User 1"));
 
         when(mockRandom.chooseRandomNumberStartingFrom1(1)).thenReturn(1);
 
@@ -52,5 +50,35 @@ class WheelTest {
         String luckyVictim = wheel.chooseLuckyVictim();
 
         assertEquals("User 1", luckyVictim);
+    }
+
+    @Test
+    void testThrowErrorWhenTheListOfNamesIsEmpty() {
+        wheel = new Wheel(mockRandom, List.of());
+
+        Exception exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> wheel.chooseLuckyVictim()
+        );
+
+        assertEquals(
+                "Cannot choose from empty list of names",
+                exception.getMessage()
+        );
+    }
+
+    @Test
+    void testThrowErrorIfTheOnlyNameIsNtobeko() {
+        wheel = new Wheel(mockRandom, List.of("Ntobeko"));
+
+        Exception exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> wheel.chooseLuckyVictim()
+        );
+
+        assertEquals(
+                "Cannot choose from empty list of names",
+                exception.getMessage()
+        );
     }
 }
